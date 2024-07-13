@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="com.itbank.shoppingMall.mapper.salesMapper"> 
+	<insert id="insertSales" parameterType="salesDTO">
+		insert into sales values(sales_seq.nextval, #{member_no}, #{product_no}, #{qty}, sysdate)
+	</insert>
+	
+	<select id="listSales" resultType="salesDTO">
+		select * from sales
+	</select>
+	
+	<select id="getSales" resultType="salesDTO" parameterType="int">
+		select * from sales where member_no = #{member_no}
+	</select>
+	
+</mapper>

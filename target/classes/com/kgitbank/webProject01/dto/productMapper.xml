@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="com.itbank.shoppingMall.mapper.productMapper">
+	<insert id="prod_input" parameterType="productDTO">
+		insert into product values(prod_seq.nextval, #{pname}, #{pcategory_fk}, #{pcompany}, #{pimage}, 
+												#{pqty}, #{price}, #{pspec}, #{pcontents}, #{point}, sysdate)
+	</insert>
+	
+	<select id="prod_list" resultType="productDTO">
+		select * from product order by pnum desc
+	</select>
+	
+	<select id="getProduct" parameterType="int" resultType="productDTO">
+		select * from product where pnum = #{pnum}
+	</select>
+	
+	<delete id="prod_delete" parameterType="int">
+		delete from product where pnum = #{pnum}
+	</delete>
+	
+	<update id="prod_update" parameterType="productDTO">
+		update product set pname=#{pname}, pcompany=#{pcompany}, 
+			pimage=#{pimage}, pqty=#{pqty}, price=#{price}, pspec=#{pspec},
+			pcontents=#{pcontents}, point=#{point} where pnum=#{pnum}
+	</update>
+	
+	<select id="prod_spec_list" parameterType="String" resultType="productDTO">
+		select * from product where pspec = #{pspec}
+	</select>
+	
+	<select id="prod_code_list" parameterType="String" resultType="productDTO">
+		select * from product where pcategory_fk like #{pcode}
+	</select>
+	
+	<update id="sales_product" parameterType="salesDTO">
+		update product set pqty = pqty - ${qty} where pnum = ${product_no}	
+	</update>
+</mapper> 
